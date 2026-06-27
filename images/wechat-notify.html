@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>知几 - 微信服务通知示意</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #e8e8e8;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  .phone-frame {
+    width: 375px;
+    height: 740px;
+    background: #ffffff;
+    border-radius: 40px;
+    border: 6px solid #1a1a1a;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+  }
+  .status-bar {
+    height: 44px;
+    background: #ededed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    font-size: 13px;
+    color: #1a1a1a;
+    font-weight: 500;
+  }
+  .status-bar .time { font-weight: 700; font-size: 15px; }
+  .status-icons { display: flex; gap: 6px; align-items: center; }
+  .header {
+    background: #ededed;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 0.5px solid #d5d5d5;
+  }
+  .back-btn { font-size: 20px; color: #333; line-height: 1; }
+  .header-title { font-size: 16px; font-weight: 500; color: #1a1a1a; }
+  .notif-header {
+    background: #ededed;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 0.5px solid #d5d5d5;
+  }
+  .notif-icon {
+    width: 36px; height: 36px;
+    background: #07C160;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .notif-info { flex: 1; }
+  .notif-name { font-size: 14px; font-weight: 500; color: #1a1a1a; }
+  .notif-time { font-size: 11px; color: #999; margin-top: 2px; }
+  .content-area { padding: 16px; background: #fff; }
+  .notif-card {
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .notif-title { font-size: 15px; font-weight: 600; color: #1a1a1a; margin-bottom: 14px; }
+  .notif-field { display: flex; margin-bottom: 10px; font-size: 13px; }
+  .field-label { color: #888; width: 72px; flex-shrink: 0; }
+  .field-value { color: #1a1a1a; flex: 1; }
+  .notif-divider { height: 0.5px; background: #e5e5e5; margin: 12px 0; }
+  .notif-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 4px; }
+  .notif-detail { font-size: 12px; color: #999; }
+  .enter-btn {
+    background: #07C160;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .bottom-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 64px;
+    background: #f7f7f7;
+    border-top: 0.5px solid #d5d5d5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .home-indicator {
+    width: 134px; height: 5px;
+    background: #1a1a1a;
+    border-radius: 3px;
+    opacity: 0.3;
+  }
+  .arrow { font-size: 14px; color: #999; margin-left: 4px; }
+</style>
+</head>
+<body>
+<div class="phone-frame">
+  <!-- 状态栏 -->
+  <div class="status-bar">
+    <span class="time">9:41</span>
+    <div class="status-icons">
+      <svg width="16" height="12" viewBox="0 0 16 12"><rect x="0.5" y="0.5" width="15" height="11" rx="2" fill="none" stroke="#1a1a1a" stroke-width="1"/><rect x="13" y="4" width="2" height="4" rx="1" fill="#1a1a1a"/><rect x="2" y="2.5" width="10" height="7" rx="1" fill="#07C160"/></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12"><path d="M2 7 L5 10 L14 1.5" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+
+  <!-- 导航栏 -->
+  <div class="header">
+    <span class="back-btn">&larr;</span>
+    <span class="header-title">服务通知</span>
+  </div>
+
+  <!-- 通知来源 -->
+  <div class="notif-header">
+    <div class="notif-icon">知</div>
+    <div class="notif-info">
+      <div class="notif-name">知几</div>
+      <div class="notif-time">现在</div>
+    </div>
+    <span style="font-size:11px;color:#999;">&#x22EE;</span>
+  </div>
+
+  <!-- 通知正文 -->
+  <div class="content-area">
+    <div class="notif-card">
+      <div class="notif-title">补剂服用提醒</div>
+
+      <div class="notif-field">
+        <span class="field-label">补剂名称</span>
+        <span class="field-value">钙片、维生素D</span>
+      </div>
+      <div class="notif-field">
+        <span class="field-label">服用时间</span>
+        <span class="field-value">08:00 早餐后</span>
+      </div>
+      <div class="notif-field">
+        <span class="field-label">温馨提醒</span>
+        <span class="field-value">记得按时服用哦～</span>
+      </div>
+
+      <div class="notif-divider"></div>
+
+      <div class="notif-footer">
+        <span class="notif-detail">查看详情 <span class="arrow">&rarr;</span></span>
+        <span class="enter-btn">进入小程序</span>
+      </div>
+    </div>
+
+    <div style="margin-top: 16px; font-size: 12px; color: #999; text-align: center;">
+      <div style="display:flex;align-items:center;justify-content:center;gap:4px;margin-bottom:4px;">
+        <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="#ccc" stroke-width="1"/><circle cx="6" cy="6" r="2" fill="#ccc"/></svg>
+        <span>知几 · 你的补剂管家</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部横条 -->
+  <div class="bottom-bar">
+    <div class="home-indicator"></div>
+  </div>
+</div>
+</body>
+</html>
